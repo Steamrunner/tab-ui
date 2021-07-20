@@ -411,6 +411,7 @@ Window {
             start_url = application.backend_url + "/api/v1/ping";
         }
         
+        var i = 0;
         function doStart() {
             loadingView.message = "Waiting for server";
             return Http.get(start_url).then(function() {
@@ -418,9 +419,9 @@ Window {
                 incrLoadLevel();
                 return doReload()
             }).then(null, function() {
-                loadingView.message = "Failed";
+                loadingView.message = "Connection attemp " + i++;
                 return new Q.Promise(function(resolve, reject) { 
-                    console.log("here");
+                    console.log("connection attemp " + i++);
                     Q.setTimeout(function() {resolve(true)}, 5000);
 
                 }).then(doStart);
